@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cat Clicker</title>
+	<style type="text/css">
+	div {
+		display:inline-block;
+	}
+</style>
+</head>
+<body>
+	<div style="width:100%">
+		<span>kitten1</span>
+		<span>kitten2</span>
+		<span>kitten3</span>
+		<span>kitten4</span>
+		<span>kitten5</span>
+	</div>
+	<div>
+		<h1 class = "kittyname"></h1>
+		<img src="">
+		<h1>0</h1>
+	</div>
+
+
+	<script type="text/javascript">
+		var kits = document.getElementsByTagName("span");
+		var kits = Array.from(kits);
+		var scores = [0,0,0,0,0];
+		var img = document.getElementsByTagName('img')[0];
+		var headings = document.getElementsByTagName("h1");
+		var name = headings[0];
+		var score = headings[1];
+		for (var i = 0; i < kits.length; i ++){
+			var img = document.getElementsByTagName('img')[0];
+			var kitty = kits[i];
+			kitty.addEventListener('click', (function(kittyCopy){
+				return function(){
+					if (img.getAttribute('src') == ""){
+						name.innerHTML = kittyCopy.innerHTML;
+						img.src = kittyCopy.innerHTML + ".jpg";
+						img.id = kittyCopy.innerHTML;
+					}
+					else if (img.src != kittyCopy.innerHTML + ".jpg"){
+						name.innerHTML = kittyCopy.innerHTML;
+						img.src = kittyCopy.innerHTML + ".jpg";
+						score.innerHTML = scores[kits.indexOf(kittyCopy)];
+						img.id = kittyCopy.innerHTML;
+					}
+				};
+			})(kitty));
+
+		};
+		img.addEventListener('click', function(){
+			var idNum = img.id.match(/\d+/)[0];
+			scores[parseInt(idNum)-1]+=1;
+			score.innerHTML = scores[parseInt(idNum)-1];
+		});
+	</script>
+</body>
+</html>
